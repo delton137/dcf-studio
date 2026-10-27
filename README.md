@@ -65,3 +65,8 @@ effort = "high"
 ```
 
 Configure your contact email in `runs.sec_user_agent` to ensure compliant access to SEC EDGAR endpoints.
+
+## License
+
+[MIT](LICENSE) © 2026 Dan Elton
+

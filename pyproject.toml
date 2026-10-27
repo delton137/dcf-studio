@@ -1,7 +1,8 @@
 [project]
 name = "dcf-studio"
 version = "0.1.0"
-description = "Run, compare and update DCF models built by Claude Code, Codex and Grok"
+description = "Run, compare and update DCF models built by Claude Code, Codex, Grok and Antigravity"
+license = "MIT"
 requires-python = ">=3.12"
 dependencies = [
   "fastapi>=0.115",
