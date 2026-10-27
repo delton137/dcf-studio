@@ -1,0 +1,3321 @@
+{
+ "$defs": {
+  "AltValuation": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "method": {
+     "enum": [
+      "net_cash_floor",
+      "exit_multiple",
+      "pe_multiple",
+      "ev_sales",
+      "mature_state",
+      "liquidation",
+      "peer",
+      "analyst_target",
+      "other"
+     ],
+     "title": "Method",
+     "type": "string"
+    },
+    "scenario_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Scenario Id"
+    },
+    "value_per_share": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Value Per Share"
+    },
+    "inputs": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Inputs",
+     "type": "object"
+    },
+    "note": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Note"
+    }
+   },
+   "required": [
+    "id",
+    "label",
+    "method"
+   ],
+   "title": "AltValuation",
+   "type": "object"
+  },
+  "Anchor": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "value": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Value"
+    },
+    "source_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Id"
+    }
+   },
+   "required": [
+    "label"
+   ],
+   "title": "Anchor",
+   "type": "object"
+  },
+  "Archetype": {
+   "additionalProperties": false,
+   "properties": {
+    "kind": {
+     "enum": [
+      "capital_intensive",
+      "asset_light",
+      "airline",
+      "manufacturer",
+      "ad_platform",
+      "utility",
+      "sotp",
+      "pre_revenue",
+      "biotech_pipeline",
+      "financial",
+      "semiconductor",
+      "consumer",
+      "software",
+      "other"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "engine": {
+     "description": "one line: the revenue/value identity, e.g. 'ASMs x (TRASM - CASM)'",
+     "title": "Engine",
+     "type": "string"
+    },
+    "decisive": {
+     "$ref": "#/$defs/Decisive"
+    },
+    "identity_check": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/IdentityCheck"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "kind",
+    "engine",
+    "decisive"
+   ],
+   "title": "Archetype",
+   "type": "object"
+  },
+  "Assumption": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "value": {
+     "title": "Value"
+    },
+    "unit": {
+     "default": "",
+     "title": "Unit",
+     "type": "string"
+    },
+    "scenario_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Scenario Id"
+    },
+    "status": {
+     "default": "assumed",
+     "enum": [
+      "measured",
+      "derived",
+      "guided",
+      "assumed"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "method": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Method"
+    },
+    "source_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Id"
+    }
+   },
+   "required": [
+    "id",
+    "label",
+    "value"
+   ],
+   "title": "Assumption",
+   "type": "object"
+  },
+  "Axis": {
+   "additionalProperties": false,
+   "properties": {
+    "key": {
+     "title": "Key",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "values": {
+     "items": {
+      "type": "number"
+     },
+     "title": "Values",
+     "type": "array"
+    }
+   },
+   "required": [
+    "key",
+    "label",
+    "values"
+   ],
+   "title": "Axis",
+   "type": "object"
+  },
+  "Basis": {
+   "additionalProperties": false,
+   "properties": {
+    "as_of": {
+     "description": "date the model's data is current to (latest filing/price date)",
+     "format": "date",
+     "title": "As Of",
+     "type": "string"
+    },
+    "valuation_date": {
+     "description": "date cash flows are discounted to",
+     "format": "date",
+     "title": "Valuation Date",
+     "type": "string"
+    },
+    "latest_period": {
+     "description": "e.g. 'Q2 FY2026 ended 2026-06-30'",
+     "title": "Latest Period",
+     "type": "string"
+    },
+    "reporting_currency": {
+     "default": "USD",
+     "title": "Reporting Currency",
+     "type": "string"
+    },
+    "fiscal_year_end": {
+     "default": "12-31",
+     "description": "MM-DD",
+     "pattern": "^\\d{2}-\\d{2}$",
+     "title": "Fiscal Year End",
+     "type": "string"
+    },
+    "margin_basis": {
+     "default": "gaap",
+     "enum": [
+      "gaap",
+      "adjusted",
+      "mixed",
+      "unknown"
+     ],
+     "title": "Margin Basis",
+     "type": "string"
+    },
+    "sbc_treatment": {
+     "default": "in_ebit",
+     "enum": [
+      "in_ebit",
+      "deducted",
+      "dilution_only",
+      "ignored",
+      "unknown"
+     ],
+     "title": "Sbc Treatment",
+     "type": "string"
+    },
+    "extra": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Extra",
+     "type": "object"
+    }
+   },
+   "required": [
+    "as_of",
+    "valuation_date",
+    "latest_period"
+   ],
+   "title": "Basis",
+   "type": "object"
+  },
+  "BridgeItem": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "kind": {
+     "enum": [
+      "cash",
+      "investments",
+      "debt",
+      "op_lease",
+      "fin_lease",
+      "restricted_cash",
+      "decom_trust",
+      "pension",
+      "nci",
+      "preferred",
+      "customer_fin_debt",
+      "deferred_revenue",
+      "options_claim",
+      "investment_stake",
+      "settlement",
+      "tax_asset",
+      "other"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "equity_effect": {
+     "description": "signed, reporting ccy millions: cash +, debt -",
+     "title": "Equity Effect",
+     "type": "number"
+    },
+    "included": {
+     "default": true,
+     "title": "Included",
+     "type": "boolean"
+    },
+    "debatable": {
+     "default": false,
+     "title": "Debatable",
+     "type": "boolean"
+    },
+    "rationale": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Rationale"
+    },
+    "source_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Id"
+    }
+   },
+   "required": [
+    "id",
+    "label",
+    "kind",
+    "equity_effect"
+   ],
+   "title": "BridgeItem",
+   "type": "object"
+  },
+  "ChangeEntry": {
+   "additionalProperties": false,
+   "properties": {
+    "summary": {
+     "title": "Summary",
+     "type": "string"
+    },
+    "detail": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Detail"
+    },
+    "paths": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Paths",
+     "type": "array"
+    },
+    "old": {
+     "default": null,
+     "title": "Old"
+    },
+    "new": {
+     "default": null,
+     "title": "New"
+    }
+   },
+   "required": [
+    "summary"
+   ],
+   "title": "ChangeEntry",
+   "type": "object"
+  },
+  "Check": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "status": {
+     "enum": [
+      "pass",
+      "fail",
+      "warn",
+      "na"
+     ],
+     "title": "Status",
+     "type": "string"
+    },
+    "detail": {
+     "default": "",
+     "title": "Detail",
+     "type": "string"
+    },
+    "diagnosis": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Diagnosis"
+    },
+    "produced_by": {
+     "default": "agent",
+     "enum": [
+      "agent",
+      "validator",
+      "app",
+      "legacy"
+     ],
+     "title": "Produced By",
+     "type": "string"
+    }
+   },
+   "required": [
+    "id",
+    "status"
+   ],
+   "title": "Check",
+   "type": "object"
+  },
+  "Component": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "kind": {
+     "default": "dcf",
+     "enum": [
+      "dcf",
+      "rnpv",
+      "fixed"
+     ],
+     "title": "Kind",
+     "type": "string"
+    },
+    "level": {
+     "default": "enterprise",
+     "enum": [
+      "enterprise",
+      "equity"
+     ],
+     "title": "Level",
+     "type": "string"
+    },
+    "probability": {
+     "anyOf": [
+      {
+       "maximum": 1,
+       "minimum": 0,
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "rNPV probability of success",
+     "title": "Probability"
+    },
+    "discounting": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/ComponentDiscounting"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "rows": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/Row"
+     },
+     "title": "Rows",
+     "type": "array"
+    },
+    "terminal": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Terminal"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "fixed_value": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Fixed Value"
+    },
+    "note": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Note"
+    },
+    "results": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/ComponentResult"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "id",
+    "label"
+   ],
+   "title": "Component",
+   "type": "object"
+  },
+  "ComponentDiscounting": {
+   "additionalProperties": false,
+   "properties": {
+    "wacc": {
+     "anyOf": [
+      {
+       "exclusiveMaximum": 1,
+       "exclusiveMinimum": 0,
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Wacc"
+    },
+    "convention": {
+     "anyOf": [
+      {
+       "enum": [
+        "end",
+        "mid"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Convention"
+    },
+    "stub_fraction": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Stub Fraction"
+    },
+    "stub_fcff": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Stub Fcff"
+    },
+    "tv_timing": {
+     "anyOf": [
+      {
+       "enum": [
+        "end_last",
+        "mid_last"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Tv Timing"
+    },
+    "wacc_build": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/WaccBuild"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "title": "ComponentDiscounting",
+   "type": "object"
+  },
+  "ComponentResult": {
+   "additionalProperties": true,
+   "properties": {
+    "pv_explicit": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Pv Explicit"
+    },
+    "tv": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Tv"
+    },
+    "pv_tv": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Pv Tv"
+    },
+    "value": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Value"
+    }
+   },
+   "title": "ComponentResult",
+   "type": "object"
+  },
+  "Decisive": {
+   "additionalProperties": false,
+   "properties": {
+    "key": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Key"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "unit": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Unit"
+    },
+    "base_value": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Base Value"
+    },
+    "market_implied": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Market Implied"
+    },
+    "anchor": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Anchor"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "label"
+   ],
+   "title": "Decisive",
+   "type": "object"
+  },
+  "Discounting": {
+   "additionalProperties": false,
+   "properties": {
+    "wacc": {
+     "exclusiveMaximum": 1,
+     "exclusiveMinimum": 0,
+     "title": "Wacc",
+     "type": "number"
+    },
+    "convention": {
+     "default": "end",
+     "enum": [
+      "end",
+      "mid"
+     ],
+     "title": "Convention",
+     "type": "string"
+    },
+    "stub_fraction": {
+     "default": 1.0,
+     "description": "share of period 1 still ahead of the valuation date",
+     "exclusiveMinimum": 0,
+     "maximum": 1,
+     "title": "Stub Fraction",
+     "type": "number"
+    },
+    "stub_fcff": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "explicit remaining period-1 FCFF (seasonal names)",
+     "title": "Stub Fcff"
+    },
+    "tv_timing": {
+     "default": "end_last",
+     "enum": [
+      "end_last",
+      "mid_last"
+     ],
+     "title": "Tv Timing",
+     "type": "string"
+    },
+    "wacc_build": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/WaccBuild"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    }
+   },
+   "required": [
+    "wacc"
+   ],
+   "title": "Discounting",
+   "type": "object"
+  },
+  "DriverDef": {
+   "additionalProperties": false,
+   "properties": {
+    "key": {
+     "title": "Key",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "unit": {
+     "default": "",
+     "title": "Unit",
+     "type": "string"
+    },
+    "kind": {
+     "anyOf": [
+      {
+       "enum": [
+        "volume",
+        "price",
+        "ratio",
+        "margin",
+        "capital",
+        "segment",
+        "other"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Kind"
+    }
+   },
+   "required": [
+    "key",
+    "label"
+   ],
+   "title": "DriverDef",
+   "type": "object"
+  },
+  "ExcludedInstrument": {
+   "additionalProperties": false,
+   "properties": {
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "shares": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Shares"
+    },
+    "per_share_impact_if_vested": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Per Share Impact If Vested"
+    },
+    "note": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Note"
+    }
+   },
+   "required": [
+    "label"
+   ],
+   "title": "ExcludedInstrument",
+   "type": "object"
+  },
+  "Grid": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "label": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Label"
+    },
+    "scenario_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Scenario Id"
+    },
+    "x": {
+     "$ref": "#/$defs/Axis"
+    },
+    "y": {
+     "$ref": "#/$defs/Axis"
+    },
+    "output": {
+     "default": "value_ps",
+     "enum": [
+      "value_ps",
+      "ev",
+      "upside",
+      "other"
+     ],
+     "title": "Output",
+     "type": "string"
+    },
+    "z": {
+     "description": "z[i][j] for y.values[i], x.values[j]",
+     "items": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ]
+      },
+      "type": "array"
+     },
+     "title": "Z",
+     "type": "array"
+    }
+   },
+   "required": [
+    "id",
+    "x",
+    "y",
+    "z"
+   ],
+   "title": "Grid",
+   "type": "object"
+  },
+  "GuidanceItem": {
+   "additionalProperties": false,
+   "properties": {
+    "metric": {
+     "title": "Metric",
+     "type": "string"
+    },
+    "basis": {
+     "default": "unknown",
+     "enum": [
+      "gaap",
+      "adjusted",
+      "unknown"
+     ],
+     "title": "Basis",
+     "type": "string"
+    },
+    "period": {
+     "title": "Period",
+     "type": "string"
+    },
+    "low": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Low"
+    },
+    "high": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "High"
+    },
+    "unit": {
+     "default": "",
+     "title": "Unit",
+     "type": "string"
+    },
+    "ytd_actual": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Ytd Actual"
+    },
+    "model": {
+     "additionalProperties": {
+      "type": "number"
+     },
+     "default": {},
+     "title": "Model",
+     "type": "object"
+    },
+    "inside": {
+     "additionalProperties": {
+      "type": "boolean"
+     },
+     "default": {},
+     "title": "Inside",
+     "type": "object"
+    },
+    "source_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Id"
+    }
+   },
+   "required": [
+    "metric",
+    "period"
+   ],
+   "title": "GuidanceItem",
+   "type": "object"
+  },
+  "Headline": {
+   "additionalProperties": false,
+   "properties": {
+    "method": {
+     "default": "base_dcf",
+     "enum": [
+      "base_dcf",
+      "prob_weighted",
+      "sotp",
+      "rnpv_sum",
+      "floor"
+     ],
+     "title": "Method",
+     "type": "string"
+    },
+    "rationale": {
+     "default": "",
+     "title": "Rationale",
+     "type": "string"
+    },
+    "value_per_share": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Value Per Share"
+    },
+    "probability_weighted": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Probability Weighted"
+    }
+   },
+   "title": "Headline",
+   "type": "object"
+  },
+  "Historicals": {
+   "additionalProperties": false,
+   "properties": {
+    "rows": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/Row"
+     },
+     "title": "Rows",
+     "type": "array"
+    },
+    "share_count_series": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/SharePoint"
+     },
+     "title": "Share Count Series",
+     "type": "array"
+    },
+    "extra": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Extra",
+     "type": "object"
+    }
+   },
+   "title": "Historicals",
+   "type": "object"
+  },
+  "IdentityCheck": {
+   "additionalProperties": false,
+   "properties": {
+    "expr": {
+     "title": "Expr",
+     "type": "string"
+    },
+    "period": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Period"
+    },
+    "model": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Model"
+    },
+    "reported": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Reported"
+    },
+    "passed": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Passed"
+    }
+   },
+   "required": [
+    "expr"
+   ],
+   "title": "IdentityCheck",
+   "type": "object"
+  },
+  "ImportInfo": {
+   "additionalProperties": false,
+   "properties": {
+    "path": {
+     "description": "legacy source path(s), relative to DCF_models/",
+     "title": "Path",
+     "type": "string"
+    },
+    "source": {
+     "enum": [
+      "claude",
+      "codex",
+      "grok",
+      "agy",
+      "other"
+     ],
+     "title": "Source",
+     "type": "string"
+    },
+    "generation": {
+     "description": "e.g. claude_g1, claude_g2, claude_wm, claude_g3, claude_sotp, claude_rnpv, claude_xlsx, grok_xlsx, codex_json, codex_xlsx",
+     "title": "Generation",
+     "type": "string"
+    },
+    "fidelity": {
+     "default": "rows",
+     "enum": [
+      "full",
+      "rows",
+      "headline"
+     ],
+     "title": "Fidelity",
+     "type": "string"
+    },
+    "source_scale": {
+     "default": "millions",
+     "enum": [
+      "units",
+      "thousands",
+      "millions",
+      "billions"
+     ],
+     "title": "Source Scale",
+     "type": "string"
+    },
+    "convention_detected": {
+     "anyOf": [
+      {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Convention Detected"
+    },
+    "quality": {
+     "default": "verified",
+     "enum": [
+      "verified",
+      "unverified"
+     ],
+     "title": "Quality",
+     "type": "string"
+    },
+    "legacy_created": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Legacy Created"
+    },
+    "notes": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Notes"
+    }
+   },
+   "required": [
+    "path",
+    "source",
+    "generation"
+   ],
+   "title": "ImportInfo",
+   "type": "object"
+  },
+  "Input": {
+   "additionalProperties": false,
+   "properties": {
+    "key": {
+     "description": "passed verbatim to model.build(overrides)",
+     "title": "Key",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "unit": {
+     "default": "",
+     "title": "Unit",
+     "type": "string"
+    },
+    "type": {
+     "default": "float",
+     "enum": [
+      "float",
+      "int",
+      "bool",
+      "enum"
+     ],
+     "title": "Type",
+     "type": "string"
+    },
+    "value": {
+     "title": "Value"
+    },
+    "min": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Min"
+    },
+    "max": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Max"
+    },
+    "step": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Step"
+    },
+    "options": {
+     "anyOf": [
+      {
+       "items": {},
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Options"
+    },
+    "scope": {
+     "description": "scenario ids or ['all']",
+     "items": {
+      "type": "string"
+     },
+     "title": "Scope",
+     "type": "array"
+    },
+    "group": {
+     "default": "drivers",
+     "title": "Group",
+     "type": "string"
+    },
+    "decisive": {
+     "default": false,
+     "title": "Decisive",
+     "type": "boolean"
+    },
+    "expected_sign": {
+     "default": "?",
+     "enum": [
+      "+",
+      "-",
+      "?"
+     ],
+     "title": "Expected Sign",
+     "type": "string"
+    },
+    "description": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Description"
+    },
+    "assumption_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Assumption Id"
+    }
+   },
+   "required": [
+    "key",
+    "label",
+    "value"
+   ],
+   "title": "Input",
+   "type": "object"
+  },
+  "Listing": {
+   "additionalProperties": false,
+   "properties": {
+    "symbol": {
+     "title": "Symbol",
+     "type": "string"
+    },
+    "exchange": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Exchange"
+    },
+    "quote_currency": {
+     "default": "USD",
+     "title": "Quote Currency",
+     "type": "string"
+    },
+    "listed_unit": {
+     "default": "common",
+     "enum": [
+      "common",
+      "ADS",
+      "ADR",
+      "GDR",
+      "class",
+      "private"
+     ],
+     "title": "Listed Unit",
+     "type": "string"
+    },
+    "ordinary_per_listed_unit": {
+     "default": 1.0,
+     "description": "ordinary shares per listed unit (TSM ADR 5, SIMO ADS 4, WRD ADS 3, SNY ADS 0.5)",
+     "exclusiveMinimum": 0,
+     "title": "Ordinary Per Listed Unit",
+     "type": "number"
+    },
+    "share_classes": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/ShareClass"
+     },
+     "title": "Share Classes",
+     "type": "array"
+    }
+   },
+   "required": [
+    "symbol"
+   ],
+   "title": "Listing",
+   "type": "object"
+  },
+  "Market": {
+   "additionalProperties": false,
+   "properties": {
+    "price": {
+     "description": "price per LISTED unit in quote currency",
+     "exclusiveMinimum": 0,
+     "title": "Price",
+     "type": "number"
+    },
+    "price_ts": {
+     "description": "ISO timestamp/date of the quote",
+     "title": "Price Ts",
+     "type": "string"
+    },
+    "price_source": {
+     "default": "unknown",
+     "title": "Price Source",
+     "type": "string"
+    },
+    "session": {
+     "anyOf": [
+      {
+       "enum": [
+        "close",
+        "intraday",
+        "pre",
+        "post"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Session"
+    },
+    "fx_spot": {
+     "default": 1.0,
+     "description": "reporting -> quote currency, at price_ts",
+     "exclusiveMinimum": 0,
+     "title": "Fx Spot",
+     "type": "number"
+    },
+    "fx_ts": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Fx Ts"
+    },
+    "fx_projection": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Fx Projection"
+    },
+    "shares_basic": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "ordinary, millions",
+     "title": "Shares Basic"
+    },
+    "shares_diluted": {
+     "description": "ordinary, millions",
+     "exclusiveMinimum": 0,
+     "title": "Shares Diluted",
+     "type": "number"
+    },
+    "market_cap": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "quote currency, millions",
+     "title": "Market Cap"
+    },
+    "local_price": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Local Price"
+    },
+    "extra": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Extra",
+     "type": "object"
+    }
+   },
+   "required": [
+    "price",
+    "price_ts",
+    "shares_diluted"
+   ],
+   "title": "Market",
+   "type": "object"
+  },
+  "Narrative": {
+   "additionalProperties": false,
+   "properties": {
+    "headline": {
+     "description": "one sentence: the number and the gap",
+     "title": "Headline",
+     "type": "string"
+    },
+    "decisive_variable": {
+     "default": "",
+     "title": "Decisive Variable",
+     "type": "string"
+    },
+    "thesis": {
+     "default": "",
+     "title": "Thesis",
+     "type": "string"
+    },
+    "bear_case": {
+     "default": "",
+     "title": "Bear Case",
+     "type": "string"
+    },
+    "bull_case": {
+     "default": "",
+     "title": "Bull Case",
+     "type": "string"
+    },
+    "opposing_case": {
+     "default": "",
+     "title": "Opposing Case",
+     "type": "string"
+    },
+    "change_my_mind": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/Trigger"
+     },
+     "title": "Change My Mind",
+     "type": "array"
+    },
+    "market_implied": {
+     "default": "",
+     "title": "Market Implied",
+     "type": "string"
+    },
+    "measured_vs_assumed": {
+     "default": "",
+     "title": "Measured Vs Assumed",
+     "type": "string"
+    },
+    "errors_corrected": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Errors Corrected",
+     "type": "array"
+    },
+    "key_risks": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Key Risks",
+     "type": "array"
+    }
+   },
+   "required": [
+    "headline"
+   ],
+   "title": "Narrative",
+   "type": "object"
+  },
+  "PeriodValue": {
+   "additionalProperties": false,
+   "properties": {
+    "period_end": {
+     "format": "date",
+     "title": "Period End",
+     "type": "string"
+    },
+    "value": {
+     "title": "Value",
+     "type": "number"
+    }
+   },
+   "required": [
+    "period_end",
+    "value"
+   ],
+   "title": "PeriodValue",
+   "type": "object"
+  },
+  "Provenance": {
+   "additionalProperties": false,
+   "properties": {
+    "schema_version": {
+     "const": "1.0",
+     "default": "1.0",
+     "title": "Schema Version",
+     "type": "string"
+    },
+    "dcfkit_version": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Dcfkit Version"
+    },
+    "ticker": {
+     "title": "Ticker",
+     "type": "string"
+    },
+    "company": {
+     "title": "Company",
+     "type": "string"
+    },
+    "cik": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Cik"
+    },
+    "version_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Version Id"
+    },
+    "parent_version": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Parent Version"
+    },
+    "producer": {
+     "default": "claude",
+     "enum": [
+      "claude",
+      "codex",
+      "grok",
+      "agy",
+      "import",
+      "app_edit"
+     ],
+     "title": "Producer",
+     "type": "string"
+    },
+    "cli": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Cli"
+    },
+    "model": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Model"
+    },
+    "run_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Run Id"
+    },
+    "created_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Created At"
+    },
+    "imported_from": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/ImportInfo"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "overrides_applied": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Overrides Applied",
+     "type": "object"
+    },
+    "changelog": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/ChangeEntry"
+     },
+     "title": "Changelog",
+     "type": "array"
+    },
+    "validation_mode": {
+     "default": "native",
+     "enum": [
+      "native",
+      "imported"
+     ],
+     "title": "Validation Mode",
+     "type": "string"
+    }
+   },
+   "required": [
+    "ticker",
+    "company"
+   ],
+   "title": "Provenance",
+   "type": "object"
+  },
+  "ReverseDCF": {
+   "additionalProperties": false,
+   "properties": {
+    "variable": {
+     "title": "Variable",
+     "type": "string"
+    },
+    "unit": {
+     "default": "",
+     "title": "Unit",
+     "type": "string"
+    },
+    "solved": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Solved"
+    },
+    "reachable": {
+     "default": true,
+     "title": "Reachable",
+     "type": "boolean"
+    },
+    "target_price": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Target Price"
+    },
+    "held_fixed": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Held Fixed"
+    },
+    "costs_scale_with_driver": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Costs Scale With Driver"
+    },
+    "anchor": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/Anchor"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "commentary": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Commentary"
+    }
+   },
+   "required": [
+    "variable"
+   ],
+   "title": "ReverseDCF",
+   "type": "object"
+  },
+  "Row": {
+   "additionalProperties": false,
+   "properties": {
+    "period": {
+     "description": "label, e.g. 'FY2026' or '2026'",
+     "title": "Period",
+     "type": "string"
+    },
+    "period_end": {
+     "format": "date",
+     "title": "Period End",
+     "type": "string"
+    },
+    "is_actual": {
+     "default": false,
+     "title": "Is Actual",
+     "type": "boolean"
+    },
+    "revenue": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Revenue"
+    },
+    "ebitda": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Ebitda"
+    },
+    "ebit": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Ebit"
+    },
+    "taxes": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Taxes"
+    },
+    "nopat": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Nopat"
+    },
+    "da": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Da"
+    },
+    "capex": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Capex"
+    },
+    "delta_nwc": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Delta Nwc"
+    },
+    "other_adj": {
+     "default": 0.0,
+     "title": "Other Adj",
+     "type": "number"
+    },
+    "fcff": {
+     "title": "Fcff",
+     "type": "number"
+    },
+    "drivers": {
+     "additionalProperties": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "default": {},
+     "title": "Drivers",
+     "type": "object"
+    }
+   },
+   "required": [
+    "period",
+    "period_end",
+    "fcff"
+   ],
+   "title": "Row",
+   "type": "object"
+  },
+  "Scenario": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "role": {
+     "enum": [
+      "bear",
+      "base",
+      "bull",
+      "other"
+     ],
+     "title": "Role",
+     "type": "string"
+    },
+    "label": {
+     "title": "Label",
+     "type": "string"
+    },
+    "probability": {
+     "anyOf": [
+      {
+       "maximum": 1,
+       "minimum": 0,
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Probability"
+    },
+    "narrative": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Narrative"
+    },
+    "year1_locked": {
+     "default": true,
+     "title": "Year1 Locked",
+     "type": "boolean"
+    },
+    "discounting": {
+     "$ref": "#/$defs/Discounting"
+    },
+    "tax": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/TaxRule"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "components": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/Component"
+     },
+     "title": "Components",
+     "type": "array"
+    },
+    "consolidated_rows": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/Row"
+     },
+     "title": "Consolidated Rows",
+     "type": "array"
+    },
+    "shares": {
+     "$ref": "#/$defs/ShareSpec"
+    },
+    "bridge_overrides": {
+     "additionalProperties": {
+      "type": "boolean"
+     },
+     "default": {},
+     "title": "Bridge Overrides",
+     "type": "object"
+    },
+    "results": {
+     "$ref": "#/$defs/ScenarioResult"
+    }
+   },
+   "required": [
+    "id",
+    "role",
+    "label",
+    "discounting",
+    "shares",
+    "results"
+   ],
+   "title": "Scenario",
+   "type": "object"
+  },
+  "ScenarioResult": {
+   "additionalProperties": true,
+   "properties": {
+    "ev": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Ev"
+    },
+    "equity": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Equity"
+    },
+    "value_per_share": {
+     "title": "Value Per Share",
+     "type": "number"
+    },
+    "value_per_share_raw": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Value Per Share Raw"
+    },
+    "value_per_ordinary": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Value Per Ordinary"
+    },
+    "tv_share_of_ev": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Tv Share Of Ev"
+    },
+    "upside": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Upside"
+    },
+    "shares_used": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Shares Used"
+    },
+    "floored": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Floored"
+    }
+   },
+   "required": [
+    "value_per_share"
+   ],
+   "title": "ScenarioResult",
+   "type": "object"
+  },
+  "ShareClass": {
+   "additionalProperties": false,
+   "properties": {
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "shares": {
+     "title": "Shares",
+     "type": "number"
+    },
+    "common_equiv": {
+     "default": 1.0,
+     "title": "Common Equiv",
+     "type": "number"
+    }
+   },
+   "required": [
+    "name",
+    "shares"
+   ],
+   "title": "ShareClass",
+   "type": "object"
+  },
+  "SharePoint": {
+   "additionalProperties": false,
+   "properties": {
+    "date": {
+     "format": "date",
+     "title": "Date",
+     "type": "string"
+    },
+    "shares": {
+     "title": "Shares",
+     "type": "number"
+    },
+    "kind": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Kind"
+    },
+    "source_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source Id"
+    }
+   },
+   "required": [
+    "date",
+    "shares"
+   ],
+   "title": "SharePoint",
+   "type": "object"
+  },
+  "ShareSpec": {
+   "additionalProperties": false,
+   "properties": {
+    "used": {
+     "description": "ordinary shares (millions) dividing equity value",
+     "exclusiveMinimum": 0,
+     "title": "Used",
+     "type": "number"
+    },
+    "method": {
+     "default": "current_diluted",
+     "enum": [
+      "current_diluted",
+      "current_basic",
+      "path_mid",
+      "path_end",
+      "burn_funded",
+      "other"
+     ],
+     "title": "Method",
+     "type": "string"
+    },
+    "path": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/PeriodValue"
+     },
+     "title": "Path",
+     "type": "array"
+    },
+    "issuance_price": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Issuance Price"
+    },
+    "issue_discount": {
+     "default": 0.0,
+     "title": "Issue Discount",
+     "type": "number"
+    },
+    "new_shares": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "New Shares"
+    },
+    "proceeds": {
+     "default": 0.0,
+     "description": "cash raised by assumed issuance, added to equity",
+     "title": "Proceeds",
+     "type": "number"
+    },
+    "proceeds_in_bridge": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Proceeds In Bridge"
+    },
+    "price_sensitive": {
+     "default": false,
+     "title": "Price Sensitive",
+     "type": "boolean"
+    },
+    "excluded_instruments": {
+     "default": [],
+     "items": {
+      "$ref": "#/$defs/ExcludedInstrument"
+     },
+     "title": "Excluded Instruments",
+     "type": "array"
+    },
+    "note": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Note"
+    }
+   },
+   "required": [
+    "used"
+   ],
+   "title": "ShareSpec",
+   "type": "object"
+  },
+  "Source": {
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "kind": {
+     "description": "10-K, 10-Q, 8-K, 20-F, 6-K, companyfacts, price, transcript, other",
+     "title": "Kind",
+     "type": "string"
+    },
+    "description": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Description"
+    },
+    "accession": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Accession"
+    },
+    "exhibit": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Exhibit"
+    },
+    "url": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Url"
+    },
+    "filed": {
+     "anyOf": [
+      {
+       "format": "date",
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Filed"
+    },
+    "fetched_at": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Fetched At"
+    }
+   },
+   "required": [
+    "id",
+    "kind"
+   ],
+   "title": "Source",
+   "type": "object"
+  },
+  "TaxRule": {
+   "additionalProperties": false,
+   "properties": {
+    "rate": {
+     "exclusiveMaximum": 1,
+     "minimum": 0,
+     "title": "Rate",
+     "type": "number"
+    },
+    "guard": {
+     "default": true,
+     "title": "Guard",
+     "type": "boolean"
+    },
+    "mode": {
+     "default": "rate_on_ebit",
+     "enum": [
+      "rate_on_ebit",
+      "as_given"
+     ],
+     "title": "Mode",
+     "type": "string"
+    },
+    "nol_opening": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Nol Opening"
+    }
+   },
+   "required": [
+    "rate"
+   ],
+   "title": "TaxRule",
+   "type": "object"
+  },
+  "Terminal": {
+   "additionalProperties": false,
+   "properties": {
+    "method": {
+     "enum": [
+      "normalized_gordon",
+      "gordon",
+      "exit_multiple",
+      "finite_annuity",
+      "none"
+     ],
+     "title": "Method",
+     "type": "string"
+    },
+    "g": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "G"
+    },
+    "nopat_next": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Nopat Next"
+    },
+    "da_next": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Da Next"
+    },
+    "capex_next": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Capex Next"
+    },
+    "dnwc_next": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Dnwc Next"
+    },
+    "fcf_next": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "stored N+1 numerator; makes reproduction exact",
+     "title": "Fcf Next"
+    },
+    "nwc_pct_of_revenue": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Nwc Pct Of Revenue"
+    },
+    "multiple": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Multiple"
+    },
+    "multiple_metric": {
+     "anyOf": [
+      {
+       "enum": [
+        "ebitda",
+        "ebit",
+        "revenue",
+        "fcff",
+        "nopat"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Multiple Metric"
+    },
+    "metric_period": {
+     "default": "last",
+     "enum": [
+      "last",
+      "next"
+     ],
+     "title": "Metric Period",
+     "type": "string"
+    },
+    "finite_years": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Finite Years"
+    },
+    "floor_at_zero": {
+     "default": false,
+     "title": "Floor At Zero",
+     "type": "boolean"
+    },
+    "note": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Note"
+    }
+   },
+   "required": [
+    "method"
+   ],
+   "title": "Terminal",
+   "type": "object"
+  },
+  "Trigger": {
+   "additionalProperties": false,
+   "properties": {
+    "metric": {
+     "title": "Metric",
+     "type": "string"
+    },
+    "threshold": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Threshold"
+    },
+    "direction": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Direction"
+    }
+   },
+   "required": [
+    "metric"
+   ],
+   "title": "Trigger",
+   "type": "object"
+  },
+  "WaccBuild": {
+   "additionalProperties": false,
+   "properties": {
+    "risk_free": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Risk Free"
+    },
+    "beta": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Beta"
+    },
+    "erp": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Erp"
+    },
+    "country_risk": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Country Risk"
+    },
+    "size_premium": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Size Premium"
+    },
+    "cost_of_equity": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Cost Of Equity"
+    },
+    "pre_tax_cost_of_debt": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Pre Tax Cost Of Debt"
+    },
+    "tax_rate": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Tax Rate"
+    },
+    "weight_equity": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Weight Equity"
+    },
+    "weight_debt": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Weight Debt"
+    },
+    "note": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Note"
+    }
+   },
+   "title": "WaccBuild",
+   "type": "object"
+  }
+ },
+ "additionalProperties": false,
+ "properties": {
+  "provenance": {
+   "$ref": "#/$defs/Provenance"
+  },
+  "basis": {
+   "$ref": "#/$defs/Basis"
+  },
+  "listing": {
+   "$ref": "#/$defs/Listing"
+  },
+  "market": {
+   "$ref": "#/$defs/Market"
+  },
+  "archetype": {
+   "$ref": "#/$defs/Archetype"
+  },
+  "drivers": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/DriverDef"
+   },
+   "title": "Drivers",
+   "type": "array"
+  },
+  "bridge": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/BridgeItem"
+   },
+   "title": "Bridge",
+   "type": "array"
+  },
+  "historicals": {
+   "$ref": "#/$defs/Historicals",
+   "default": {
+    "rows": [],
+    "share_count_series": [],
+    "extra": {}
+   }
+  },
+  "scenarios": {
+   "items": {
+    "$ref": "#/$defs/Scenario"
+   },
+   "title": "Scenarios",
+   "type": "array"
+  },
+  "headline": {
+   "$ref": "#/$defs/Headline",
+   "default": {
+    "method": "base_dcf",
+    "rationale": "",
+    "value_per_share": null,
+    "probability_weighted": null
+   }
+  },
+  "alt_valuations": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/AltValuation"
+   },
+   "title": "Alt Valuations",
+   "type": "array"
+  },
+  "inputs": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/Input"
+   },
+   "title": "Inputs",
+   "type": "array"
+  },
+  "assumptions": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/Assumption"
+   },
+   "title": "Assumptions",
+   "type": "array"
+  },
+  "guidance": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/GuidanceItem"
+   },
+   "title": "Guidance",
+   "type": "array"
+  },
+  "reverse_dcf": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/ReverseDCF"
+   },
+   "title": "Reverse Dcf",
+   "type": "array"
+  },
+  "grids": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/Grid"
+   },
+   "title": "Grids",
+   "type": "array"
+  },
+  "checks": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/Check"
+   },
+   "title": "Checks",
+   "type": "array"
+  },
+  "narrative": {
+   "$ref": "#/$defs/Narrative"
+  },
+  "sources": {
+   "default": [],
+   "items": {
+    "$ref": "#/$defs/Source"
+   },
+   "title": "Sources",
+   "type": "array"
+  },
+  "engine_override_reason": {
+   "anyOf": [
+    {
+     "type": "string"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "title": "Engine Override Reason"
+  },
+  "derived": {
+   "anyOf": [
+    {
+     "additionalProperties": true,
+     "type": "object"
+    },
+    {
+     "type": "null"
+    }
+   ],
+   "default": null,
+   "description": "APP-WRITTEN canonical metrics; ignored on input",
+   "title": "Derived"
+  },
+  "extra": {
+   "additionalProperties": true,
+   "default": {},
+   "title": "Extra",
+   "type": "object"
+  }
+ },
+ "required": [
+  "provenance",
+  "basis",
+  "listing",
+  "market",
+  "archetype",
+  "scenarios",
+  "narrative"
+ ],
+ "title": "DCF",
+ "type": "object"
+}

@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Colour tokens are RGB triplets so Tailwind's alpha modifiers work (bg-claude/20). */
+:root {
+  --bg: 248 248 247;
+  --panel: 255 255 255;
+  --sunken: 243 243 241;
+  --line: 226 226 222;
+  --fg: 24 24 27;
+  --muted: 100 100 108;
+  --faint: 160 160 168;
+  --accent: 37 99 235;
+  --pos: 22 133 74;
+  --neg: 205 45 45;
+  --warn: 196 132 8;
+  --src-claude: 200 97 63;
+  --src-codex: 14 124 134;
+  --src-grok: 124 58 237;
+  --src-agy: 37 99 235;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: 14 14 16;
+  --panel: 22 22 25;
+  --sunken: 17 17 20;
+  --line: 44 44 50;
+  --fg: 232 232 236;
+  --muted: 152 152 162;
+  --faint: 100 100 110;
+  --accent: 96 145 250;
+  --pos: 52 199 109;
+  --neg: 248 100 100;
+  --warn: 234 179 8;
+  --src-claude: 226 135 104;
+  --src-codex: 59 184 196;
+  --src-grok: 167 139 250;
+  --src-agy: 96 165 250;
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-bg text-fg font-sans antialiased;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+@layer components {
+  .card {
+    @apply rounded-md border border-line bg-panel;
+  }
+  .card-h {
+    @apply flex items-center justify-between gap-2 border-b border-line px-3 py-2 text-xs font-semibold uppercase tracking-wide text-muted;
+  }
+  .btn {
+    @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded border border-line bg-panel px-2.5 py-1 text-xs font-medium text-fg shadow-sm transition-colors hover:bg-sunken disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply border-transparent bg-fg text-bg hover:bg-fg/85;
+  }
+  .btn-danger {
+    @apply border-neg/40 text-neg hover:bg-neg/10;
+  }
+  .btn-ghost {
+    @apply border-transparent bg-transparent shadow-none hover:bg-sunken;
+  }
+  .input {
+    @apply rounded border border-line bg-panel px-2 py-1 text-xs text-fg outline-none placeholder:text-faint focus:border-accent focus:ring-1 focus:ring-accent/40 disabled:opacity-50;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 whitespace-nowrap rounded px-1.5 py-px text-2xs font-medium leading-4;
+  }
+  .tbl {
+    @apply w-full border-collapse text-xs;
+  }
+  .tbl th {
+    @apply sticky top-0 z-[1] whitespace-nowrap border-b border-line bg-sunken px-2 py-1.5 text-left text-2xs font-semibold uppercase tracking-wide text-muted;
+  }
+  .tbl td {
+    @apply border-b border-line/70 px-2 py-1 align-top;
+  }
+  .tbl tbody tr:hover > td {
+    @apply bg-sunken/60;
+  }
+  .tbl td.n,
+  .tbl th.n {
+    @apply text-right num;
+  }
+  .link {
+    @apply text-accent hover:underline;
+  }
+  .label {
+    @apply text-2xs font-semibold uppercase tracking-wide text-muted;
+  }
+  .scroll-x {
+    @apply overflow-x-auto;
+  }
+}
+
+/* range inputs */
+input[type='range'] {
+  accent-color: rgb(var(--accent));
+  height: 14px;
+}
+
+/* recharts text colours follow the theme */
+.recharts-cartesian-axis-tick-value {
+  fill: rgb(var(--muted));
+  font-size: 11px;
+}
+.recharts-cartesian-grid line {
+  stroke: rgb(var(--line));
+}
+.recharts-legend-item-text {
+  font-size: 11px;
+}
+
+/* markdown report tables */
+.prose table {
+  font-size: 12px;
+}
+.prose th,
+.prose td {
+  padding: 3px 8px !important;
+  border: 1px solid rgb(var(--line));
+}
+.prose thead th {
+  background: rgb(var(--sunken));
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--line));
+  border-radius: 6px;
+  border: 2px solid rgb(var(--bg));
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* screener grid rows: opaque backgrounds so the sticky symbol column covers scrolled cells */
+.sc-row {
+  background-color: rgb(var(--panel));
+}
+.sc-row:hover {
+  background-color: rgb(var(--sunken));
+}
+.sc-row.sc-sel {
+  background-image: linear-gradient(rgb(var(--accent) / 0.07), rgb(var(--accent) / 0.07));
+}
+.sc-row.sc-active {
+  background-image: linear-gradient(rgb(var(--accent) / 0.15), rgb(var(--accent) / 0.15));
+}
+.sc-row > .sc-sticky {
+  background: inherit;
+}

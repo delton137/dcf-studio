@@ -1,0 +1,22 @@
+[project]
+name = "dcf-studio"
+version = "0.1.0"
+description = "Run, compare and update DCF models built by Claude Code, Codex and Grok"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "pydantic>=2.9",
+  "openpyxl>=3.1",
+  "httpx>=0.27",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:cacheprovider"
+
+[tool.uv]
+package = false

@@ -1,0 +1,1394 @@
+{
+ "alt_valuations": [],
+ "archetype": {
+  "decisive": {
+   "base_value": 30.0,
+   "key": "base.term_gp_per_unit",
+   "label": "Terminal gross profit per unit",
+   "unit": "$"
+  },
+  "engine": "units x (ASP - unit cost) - opex",
+  "identity_check": {
+   "expr": "units x ASP = revenue",
+   "model": 985.0,
+   "passed": true,
+   "period": "FY2025",
+   "reported": 985.0
+  },
+  "kind": "manufacturer"
+ },
+ "assumptions": [
+  {
+   "id": "wacc_base",
+   "label": "Base WACC",
+   "method": "CAPM: rf 4.2%, beta 1.1, ERP 5.0%; 25% debt at 6.5% pre-tax",
+   "scenario_id": "base",
+   "status": "derived",
+   "unit": "%",
+   "value": 0.09
+  },
+  {
+   "id": "fy26_units",
+   "label": "FY26 units",
+   "method": "midpoint of 10.6-10.8M guidance",
+   "source_id": "8k_q2",
+   "status": "guided",
+   "unit": "M",
+   "value": 10.7
+  },
+  {
+   "id": "gp_fy25",
+   "label": "FY25 GP/unit",
+   "source_id": "10q_q2",
+   "status": "measured",
+   "unit": "$",
+   "value": 28.099999999999994
+  }
+ ],
+ "basis": {
+  "as_of": "2026-09-30",
+  "fiscal_year_end": "12-31",
+  "latest_period": "Q2 FY2026 ended 2026-06-30",
+  "margin_basis": "gaap",
+  "reporting_currency": "USD",
+  "sbc_treatment": "in_ebit",
+  "valuation_date": "2026-06-30"
+ },
+ "bridge": [
+  {
+   "equity_effect": 420.0,
+   "id": "cash",
+   "included": true,
+   "kind": "cash",
+   "label": "Cash & equivalents (Q2)",
+   "source_id": "10q_q2"
+  },
+  {
+   "equity_effect": -900.0,
+   "id": "debt",
+   "included": true,
+   "kind": "debt",
+   "label": "Total debt (Q2)",
+   "source_id": "10q_q2"
+  },
+  {
+   "debatable": true,
+   "equity_effect": -160.0,
+   "id": "op_leases",
+   "included": true,
+   "kind": "op_lease",
+   "label": "Operating lease liabilities",
+   "rationale": "Plant leases are financing-like; rating agencies capitalise them.",
+   "source_id": "10q_q2"
+  }
+ ],
+ "checks": [
+  {
+   "detail": "FY24/FY25 within 1%",
+   "id": "engine_identity",
+   "label": "units x ASP = reported revenue",
+   "status": "pass"
+  },
+  {
+   "detail": "{\"bear\": 1086.0, \"base\": 1086.0, \"bull\": 1086.0}",
+   "id": "inside_guidance",
+   "label": "FY26 revenue inside guidance, every scenario",
+   "status": "pass"
+  },
+  {
+   "detail": "H1 512.0",
+   "id": "ytd_floor",
+   "label": "FY26 revenue >= H1 actual",
+   "status": "pass"
+  },
+  {
+   "detail": "",
+   "id": "terminal_capex",
+   "label": "terminal capex = D&A x (1+g), every scenario",
+   "status": "pass"
+  },
+  {
+   "detail": "EBIT -50 -> taxes 0",
+   "id": "tax_guard",
+   "label": "no tax benefit on losses",
+   "status": "pass"
+  },
+  {
+   "detail": "",
+   "id": "fcf_identity",
+   "label": "FCF = NOPAT + D&A - capex - dNWC",
+   "status": "pass"
+  },
+  {
+   "detail": "{\"bear\": 5.49, \"base\": 38.81, \"bull\": 95.31}",
+   "id": "monotonic",
+   "label": "bear < base < bull",
+   "status": "pass"
+  },
+  {
+   "detail": "38.81 -> 31.08",
+   "id": "wacc_monotonic",
+   "label": "higher WACC lowers value",
+   "status": "pass"
+  },
+  {
+   "detail": "Q2: 3,410 = 2,050 + 1,360",
+   "id": "balance_sheet_foots",
+   "label": "assets = liabilities + equity",
+   "status": "pass"
+  },
+  {
+   "detail": "FY25: 132 - 55 = 77",
+   "id": "fcf_derivation",
+   "label": "reported FCF = OCF - capex",
+   "status": "pass"
+  },
+  {
+   "detail": "single-line revenue",
+   "id": "components_sum",
+   "status": "na"
+  },
+  {
+   "detail": "one segment",
+   "id": "segments_reconcile",
+   "status": "na"
+  },
+  {
+   "detail": "no non-GAAP metrics used",
+   "id": "non_gaap_recon",
+   "status": "na"
+  },
+  {
+   "detail": "PP&E not modelled (capex/D&A as % of revenue)",
+   "id": "ppe_rollforward",
+   "status": "na"
+  }
+ ],
+ "drivers": [
+  {
+   "key": "units",
+   "kind": "volume",
+   "label": "Units shipped",
+   "unit": "M"
+  },
+  {
+   "key": "asp",
+   "kind": "price",
+   "label": "Average selling price",
+   "unit": "$"
+  },
+  {
+   "key": "gp_per_unit",
+   "kind": "margin",
+   "label": "Gross profit per unit",
+   "unit": "$"
+  },
+  {
+   "key": "opex",
+   "kind": "other",
+   "label": "Operating expenses",
+   "unit": "$M"
+  }
+ ],
+ "grids": [
+  {
+   "id": "wacc_g",
+   "label": "Base value/share: WACC x g",
+   "output": "value_ps",
+   "scenario_id": "base",
+   "x": {
+    "key": "wacc",
+    "label": "WACC",
+    "values": [
+     0.08,
+     0.08499999999999999,
+     0.09,
+     0.095,
+     0.09999999999999999
+    ]
+   },
+   "y": {
+    "key": "g",
+    "label": "Terminal g",
+    "values": [
+     0.015000000000000001,
+     0.02,
+     0.025,
+     0.030000000000000002,
+     0.035
+    ]
+   },
+   "z": [
+    [
+     42.93488879915754,
+     38.388330049280555,
+     34.46594604686753,
+     31.050012257901162,
+     28.050534867831065
+    ],
+    [
+     45.91453437690597,
+     40.826398809984696,
+     36.483182427197335,
+     32.735210896928095,
+     29.470259089940836
+    ],
+    [
+     49.438993046348095,
+     43.67353807500236,
+     38.813208827315194,
+     34.66336065450869,
+     31.08128453361336
+    ],
+    [
+     53.67170873499206,
+     47.04131252732814,
+     41.53422275216813,
+     36.89052717338615,
+     32.92460431775493
+    ],
+    [
+     58.848767115905076,
+     51.08591272315445,
+     44.75285716304748,
+     39.49146464388462,
+     35.05382482862765
+    ]
+   ]
+  }
+ ],
+ "guidance": [
+  {
+   "basis": "gaap",
+   "high": 1100.0,
+   "inside": {
+    "base": true,
+    "bear": true,
+    "bull": true
+   },
+   "low": 1060.0,
+   "metric": "Revenue",
+   "model": {
+    "base": 1086.05,
+    "bear": 1086.05,
+    "bull": 1086.05
+   },
+   "period": "FY2026",
+   "source_id": "8k_q2",
+   "unit": "$M",
+   "ytd_actual": 512.0
+  }
+ ],
+ "headline": {
+  "method": "prob_weighted",
+  "probability_weighted": 44.607050136851235,
+  "rationale": "Scenarios diverge from FY27; weights 25/50/25.",
+  "value_per_share": 44.607050136851235
+ },
+ "historicals": {
+  "rows": [
+   {
+    "capex": 52.0,
+    "da": 36.0,
+    "delta_nwc": 6.0,
+    "drivers": {
+     "asp": 96.8,
+     "gp_per_unit": 26.700000000000003,
+     "units": 9.4
+    },
+    "ebit": 118.0,
+    "ebitda": 154.0,
+    "fcff": 71.22,
+    "is_actual": true,
+    "nopat": 93.22,
+    "other_adj": 0.0,
+    "period": "FY2024",
+    "period_end": "2024-12-31",
+    "revenue": 910.0,
+    "taxes": 24.779999999999998
+   },
+   {
+    "capex": 55.0,
+    "da": 39.0,
+    "delta_nwc": 7.5,
+    "drivers": {
+     "asp": 98.5,
+     "gp_per_unit": 28.099999999999994,
+     "units": 10.0
+    },
+    "ebit": 133.0,
+    "ebitda": 172.0,
+    "fcff": 81.57,
+    "is_actual": true,
+    "nopat": 105.07,
+    "other_adj": 0.0,
+    "period": "FY2025",
+    "period_end": "2025-12-31",
+    "revenue": 985.0,
+    "taxes": 27.93
+   }
+  ],
+  "share_count_series": [
+   {
+    "date": "2025-06-30",
+    "shares": 48.6,
+    "source_id": "10q_q2"
+   },
+   {
+    "date": "2026-06-30",
+    "shares": 49.2,
+    "source_id": "10q_q2"
+   }
+  ]
+ },
+ "inputs": [
+  {
+   "decisive": false,
+   "expected_sign": "+",
+   "group": "volume",
+   "key": "base.unit_growth",
+   "label": "Base unit growth (FY27+)",
+   "max": 0.2,
+   "min": -0.05,
+   "scope": [
+    "base"
+   ],
+   "step": 0.005,
+   "type": "float",
+   "unit": "%/yr",
+   "value": 0.06
+  },
+  {
+   "decisive": true,
+   "expected_sign": "+",
+   "group": "unit economics",
+   "key": "base.term_gp_per_unit",
+   "label": "Base terminal GP per unit",
+   "max": 45.0,
+   "min": 15.0,
+   "scope": [
+    "base"
+   ],
+   "step": 0.5,
+   "type": "float",
+   "unit": "$",
+   "value": 30.0
+  },
+  {
+   "expected_sign": "+",
+   "group": "unit economics",
+   "key": "bear.term_gp_per_unit",
+   "label": "Bear terminal GP per unit",
+   "max": 40.0,
+   "min": 10.0,
+   "scope": [
+    "bear"
+   ],
+   "step": 0.5,
+   "type": "float",
+   "unit": "$",
+   "value": 26.0
+  },
+  {
+   "expected_sign": "+",
+   "group": "unit economics",
+   "key": "bull.term_gp_per_unit",
+   "label": "Bull terminal GP per unit",
+   "max": 50.0,
+   "min": 15.0,
+   "scope": [
+    "bull"
+   ],
+   "step": 0.5,
+   "type": "float",
+   "unit": "$",
+   "value": 33.0
+  },
+  {
+   "expected_sign": "-",
+   "group": "discounting",
+   "key": "base.wacc",
+   "label": "Base WACC",
+   "max": 0.14,
+   "min": 0.06,
+   "scope": [
+    "base"
+   ],
+   "step": 0.0025,
+   "type": "float",
+   "unit": "%",
+   "value": 0.09
+  },
+  {
+   "expected_sign": "+",
+   "group": "discounting",
+   "key": "base.g",
+   "label": "Base terminal growth",
+   "max": 0.04,
+   "min": 0.0,
+   "scope": [
+    "base"
+   ],
+   "step": 0.0025,
+   "type": "float",
+   "unit": "%",
+   "value": 0.025
+  },
+  {
+   "expected_sign": "-",
+   "group": "costs",
+   "key": "opex_growth",
+   "label": "Opex growth",
+   "max": 0.08,
+   "min": 0.0,
+   "scope": [
+    "all"
+   ],
+   "step": 0.005,
+   "type": "float",
+   "unit": "%/yr",
+   "value": 0.03
+  },
+  {
+   "expected_sign": "-",
+   "group": "bridge",
+   "key": "include_leases",
+   "label": "Treat operating leases as debt",
+   "scope": [
+    "all"
+   ],
+   "type": "bool",
+   "value": true
+  }
+ ],
+ "listing": {
+  "exchange": "NYSE",
+  "listed_unit": "common",
+  "ordinary_per_listed_unit": 1.0,
+  "quote_currency": "USD",
+  "symbol": "EXMPL"
+ },
+ "market": {
+  "fx_spot": 1.0,
+  "market_cap": 2105.0,
+  "price": 42.1,
+  "price_source": "stooq close",
+  "price_ts": "2026-09-30",
+  "shares_basic": 49.2,
+  "shares_diluted": 50.0
+ },
+ "narrative": {
+  "bear_case": "Unit growth stalls and GP/unit compresses.",
+  "bull_case": "Share gains plus mix.",
+  "change_my_mind": [
+   {
+    "direction": "bearish",
+    "metric": "GP/unit",
+    "threshold": "< $27 for two quarters"
+   }
+  ],
+  "decisive_variable": "Terminal gross profit per unit.",
+  "errors_corrected": [],
+  "headline": "Fictional example: probability-weighted $44.61 vs $42.10 price.",
+  "key_risks": [
+   "Input costs",
+   "Pricing"
+  ],
+  "market_implied": "See reverse DCF.",
+  "measured_vs_assumed": "Historicals measured; growth and terminal GP/unit assumed.",
+  "opposing_case": "n/a (example).",
+  "thesis": "Demonstration model; numbers are invented."
+ },
+ "provenance": {
+  "company": "Example Widgets Inc. (fictional)",
+  "dcfkit_version": "1.0.0",
+  "producer": "claude",
+  "ticker": "EXMPL",
+  "validation_mode": "native"
+ },
+ "reverse_dcf": [
+  {
+   "anchor": {
+    "label": "FY25 actual GP/unit",
+    "source_id": "10q_q2",
+    "value": 28.099999999999994
+   },
+   "commentary": "Market needs GP/unit to stay near today's level for a decade.",
+   "costs_scale_with_driver": true,
+   "held_fixed": "units, ASP, opex, WACC, g",
+   "reachable": true,
+   "solved": 31.232800643007245,
+   "target_price": 42.1,
+   "unit": "$",
+   "variable": "Terminal GP per unit (base)"
+  }
+ ],
+ "scenarios": [
+  {
+   "bridge_overrides": {
+    "op_leases": true
+   },
+   "components": [
+    {
+     "id": "consolidated",
+     "kind": "dcf",
+     "label": "Example Widgets",
+     "results": {
+      "fcf_next": 79.54753562642732,
+      "pv_explicit": 512.5366983231721,
+      "pv_tv": 402.07422526787155,
+      "tv": 994.3441953303414,
+      "tv_share": 0.4396123148072675,
+      "value": 914.6109235910437,
+      "wacc": 0.1
+     },
+     "rows": [
+      {
+       "capex": 59.732749999999996,
+       "da": 43.442,
+       "delta_nwc": 10.104999999999997,
+       "drivers": {
+        "asp": 101.5,
+        "gp_per_unit": 30.0,
+        "opex": 175.0,
+        "units": 10.7
+       },
+       "ebit": 146.0,
+       "ebitda": 189.442,
+       "fcff": 88.94425000000001,
+       "is_actual": false,
+       "nopat": 115.34,
+       "other_adj": 0.0,
+       "period": "FY2026",
+       "period_end": "2026-12-31",
+       "revenue": 1086.05,
+       "taxes": 30.66
+      },
+      {
+       "capex": 60.363180304,
+       "da": 45.1970568,
+       "delta_nwc": 4.387642000000006,
+       "drivers": {
+        "asp": 103.53,
+        "gp_per_unit": 29.555555555555557,
+        "opex": 180.25,
+        "units": 10.914
+       },
+       "ebit": 142.31933333333336,
+       "ebitda": 187.51639013333335,
+       "fcff": 92.87850782933336,
+       "is_actual": false,
+       "nopat": 112.43227333333336,
+       "other_adj": 0.0,
+       "period": "FY2027",
+       "period_end": "2027-12-31",
+       "revenue": 1129.92642,
+       "taxes": 29.887060000000005
+      },
+      {
+       "capex": 60.947055971323195,
+       "da": 47.02301789472,
+       "delta_nwc": 4.564902736799991,
+       "drivers": {
+        "asp": 105.6006,
+        "gp_per_unit": 29.11111111111111,
+        "opex": 185.6575,
+        "units": 11.13228
+       },
+       "ebit": 138.41554,
+       "ebitda": 185.43855789472,
+       "fcff": 90.8593357865968,
+       "is_actual": false,
+       "nopat": 109.34827659999999,
+       "other_adj": 0.0,
+       "period": "FY2028",
+       "period_end": "2028-12-31",
+       "revenue": 1175.575447368,
+       "taxes": 29.067263399999998
+      },
+      {
+       "capex": 61.479586424201145,
+       "da": 48.92274781766669,
+       "delta_nwc": 4.749324807366725,
+       "drivers": {
+        "asp": 107.71261200000001,
+        "gp_per_unit": 28.666666666666668,
+        "opex": 191.227225,
+        "units": 11.3549256
+       },
+       "ebit": 134.28064220000002,
+       "ebitda": 183.20339001766672,
+       "fcff": 88.77554392409884,
+       "is_actual": false,
+       "nopat": 106.08170733800002,
+       "other_adj": 0.0,
+       "period": "FY2029",
+       "period_end": "2029-12-31",
+       "revenue": 1223.0686954416672,
+       "taxes": 28.198934862
+      },
+      {
+       "capex": 61.95566999079746,
+       "da": 50.89922682950042,
+       "delta_nwc": 4.941197529584338,
+       "drivers": {
+        "asp": 109.86686424000001,
+        "gp_per_unit": 28.22222222222222,
+        "opex": 196.96404175,
+        "units": 11.582024112
+       },
+       "ebit": 129.90641652199994,
+       "ebitda": 180.80564335150035,
+       "fcff": 86.62842836149856,
+       "is_actual": false,
+       "nopat": 102.62606905237996,
+       "other_adj": 0.0,
+       "period": "FY2030",
+       "period_end": "2030-12-31",
+       "revenue": 1272.4806707375105,
+       "taxes": 27.280347469619986
+      },
+      {
+       "capex": 62.36987658779663,
+       "da": 52.955555593412235,
+       "delta_nwc": 5.140821909779539,
+       "drivers": {
+        "asp": 112.06420152480001,
+        "gp_per_unit": 27.77777777777778,
+        "opex": 202.8729630025,
+        "units": 11.813664594239999
+       },
+       "ebit": 125.2843868375,
+       "ebitda": 178.23994243091224,
+       "fcff": 84.41952269746108,
+       "is_actual": false,
+       "nopat": 98.97466560162499,
+       "other_adj": 0.0,
+       "period": "FY2031",
+       "period_end": "2031-12-31",
+       "revenue": 1323.888889835306,
+       "taxes": 26.309721235875
+      },
+      {
+       "capex": 62.716429511501175,
+       "da": 55.094960039386095,
+       "delta_nwc": 5.34851111493465,
+       "drivers": {
+        "asp": 114.30548555529602,
+        "gp_per_unit": 27.333333333333332,
+        "opex": 208.959151892575,
+        "units": 12.049937886124798
+       },
+       "ebit": 120.40581699483613,
+       "ebitda": 175.5007770342222,
+       "fcff": 82.15061483887081,
+       "is_actual": false,
+       "nopat": 95.12059542592054,
+       "other_adj": 0.0,
+       "period": "FY2032",
+       "period_end": "2032-12-31",
+       "revenue": 1377.3740009846524,
+       "taxes": 25.285221568915585
+      },
+      {
+       "capex": 62.98918629366949,
+       "da": 57.32079642497729,
+       "delta_nwc": 5.564590963977981,
+       "drivers": {
+        "asp": 116.59159526640194,
+        "gp_per_unit": 26.88888888888889,
+        "opex": 215.22792644935225,
+        "units": 12.290936643847294
+       },
+       "ebit": 115.26170330743054,
+       "ebitda": 172.58249973240783,
+       "fcff": 79.82376478019994,
+       "is_actual": false,
+       "nopat": 91.05674561287012,
+       "other_adj": 0.0,
+       "period": "FY2033",
+       "period_end": "2033-12-31",
+       "revenue": 1433.0199106244322,
+       "taxes": 24.204957694560413
+      },
+      {
+       "capex": 63.181618576245526,
+       "da": 59.636556600546385,
+       "delta_nwc": 5.789400438922735,
+       "drivers": {
+        "asp": 118.92342717172998,
+        "gp_per_unit": 26.444444444444443,
+        "opex": 221.6847642428328,
+        "units": 12.53675537672424
+       },
+       "ebit": 109.84276683054154,
+       "ebitda": 169.47932343108792,
+       "fcff": 77.44132338150594,
+       "is_actual": false,
+       "nopat": 86.77578579612782,
+       "other_adj": 0.0,
+       "period": "FY2034",
+       "period_end": "2034-12-31",
+       "revenue": 1490.9139150136596,
+       "taxes": 23.066981034413722
+      },
+      {
+       "capex": 63.28679095695262,
+       "da": 62.04587348720845,
+       "delta_nwc": 6.023292216655182,
+       "drivers": {
+        "asp": 121.30189571516459,
+        "gp_per_unit": 26.0,
+        "opex": 228.3353071701178,
+        "units": 12.787490484258726
+       },
+       "ebit": 104.13944542060909,
+       "ebitda": 166.18531890781753,
+       "fcff": 75.00595219588185,
+       "is_actual": false,
+       "nopat": 82.27016188228119,
+       "other_adj": 0.0,
+       "period": "FY2035",
+       "period_end": "2035-12-31",
+       "revenue": 1551.1468371802114,
+       "taxes": 21.86928353832791
+      }
+     ],
+     "terminal": {
+      "capex_next": 64.55252677609168,
+      "da_next": 63.28679095695262,
+      "dnwc_next": 3.102293674360423,
+      "fcf_next": 79.54753562642732,
+      "g": 0.02,
+      "method": "normalized_gordon",
+      "nopat_next": 83.91556511992681,
+      "nwc_pct_of_revenue": 0.1
+     }
+    }
+   ],
+   "discounting": {
+    "convention": "end",
+    "stub_fraction": 0.5,
+    "tv_timing": "end_last",
+    "wacc": 0.1
+   },
+   "id": "bear",
+   "label": "Bear",
+   "narrative": "Units stall at +2%/yr and pricing pressure takes GP/unit to $26.",
+   "probability": 0.25,
+   "results": {
+    "bridge_total": -640.0,
+    "equity": 274.61092359104373,
+    "equity_components": 0.0,
+    "ev": 914.6109235910437,
+    "floored": false,
+    "issuance_proceeds": 0.0,
+    "pv_explicit": 512.5366983231721,
+    "pv_tv": 402.07422526787155,
+    "shares_used": 50.0,
+    "tv_share_of_ev": 0.4396123148072675,
+    "upside": -0.8695435042322832,
+    "value_per_ordinary": 5.492218471820874,
+    "value_per_share": 5.492218471820874,
+    "value_per_share_raw": 5.492218471820874
+   },
+   "role": "bear",
+   "shares": {
+    "method": "current_diluted",
+    "used": 50.0
+   },
+   "tax": {
+    "guard": true,
+    "mode": "rate_on_ebit",
+    "rate": 0.21
+   },
+   "year1_locked": true
+  },
+  {
+   "bridge_overrides": {
+    "op_leases": true
+   },
+   "components": [
+    {
+     "id": "consolidated",
+     "kind": "dcf",
+     "label": "Example Widgets",
+     "results": {
+      "fcf_next": 246.5216171465473,
+      "pv_explicit": 908.0688046432423,
+      "pv_tv": 1672.5916367225175,
+      "tv": 3792.640263793035,
+      "tv_share": 0.648125421660408,
+      "value": 2580.6604413657597,
+      "wacc": 0.09
+     },
+     "rows": [
+      {
+       "capex": 59.732749999999996,
+       "da": 43.442,
+       "delta_nwc": 10.104999999999997,
+       "drivers": {
+        "asp": 101.5,
+        "gp_per_unit": 30.0,
+        "opex": 175.0,
+        "units": 10.7
+       },
+       "ebit": 146.0,
+       "ebitda": 189.442,
+       "fcff": 88.94425000000001,
+       "is_actual": false,
+       "nopat": 115.34,
+       "other_adj": 0.0,
+       "period": "FY2026",
+       "period_end": "2026-12-31",
+       "revenue": 1086.05,
+       "taxes": 30.66
+      },
+      {
+       "capex": 62.756458006666676,
+       "da": 46.969490400000005,
+       "delta_nwc": 8.818726000000016,
+       "drivers": {
+        "asp": 103.53,
+        "gp_per_unit": 30.0,
+        "opex": 180.25,
+        "units": 11.342
+       },
+       "ebit": 160.01,
+       "ebitda": 206.9794904,
+       "fcff": 101.80220639333331,
+       "is_actual": false,
+       "nopat": 126.40789999999998,
+       "other_adj": 0.0,
+       "period": "FY2027",
+       "period_end": "2027-12-31",
+       "revenue": 1174.23726,
+       "taxes": 33.6021
+      },
+      {
+       "capex": 65.877371890456,
+       "da": 50.78341302048001,
+       "delta_nwc": 9.534806551200019,
+       "drivers": {
+        "asp": 105.6006,
+        "gp_per_unit": 30.0,
+        "opex": 185.6575,
+        "units": 12.022520000000002
+       },
+       "ebit": 175.01810000000003,
+       "ebitda": 225.80151302048006,
+       "fcff": 113.63553357882402,
+       "is_actual": false,
+       "nopat": 138.26429900000002,
+       "other_adj": 0.0,
+       "period": "FY2028",
+       "period_end": "2028-12-31",
+       "revenue": 1269.5853255120003,
+       "taxes": 36.753801
+      },
+      {
+       "capex": 69.09134124849326,
+       "da": 54.907026157743,
+       "delta_nwc": 10.309032843157457,
+       "drivers": {
+        "asp": 107.71261200000001,
+        "gp_per_unit": 30.0,
+        "opex": 191.227225,
+        "units": 12.743871200000003
+       },
+       "ebit": 191.08891100000008,
+       "ebitda": 245.99593715774307,
+       "fcff": 126.46689175609232,
+       "is_actual": false,
+       "nopat": 150.96023969000007,
+       "other_adj": 0.0,
+       "period": "FY2029",
+       "period_end": "2029-12-31",
+       "revenue": 1372.6756539435748,
+       "taxes": 40.128671310000016
+      },
+      {
+       "capex": 72.39290073135835,
+       "da": 59.36547668175172,
+       "delta_nwc": 11.146126310021828,
+       "drivers": {
+        "asp": 109.86686424000001,
+        "gp_per_unit": 30.0,
+        "opex": 196.96404175,
+        "units": 13.508503472000003
+       },
+       "ebit": 208.29106241000008,
+       "ebitda": 267.6565390917518,
+       "fcff": 140.37638894427158,
+       "is_actual": false,
+       "nopat": 164.54993930390006,
+       "other_adj": 0.0,
+       "period": "FY2030",
+       "period_end": "2030-12-31",
+       "revenue": 1484.1369170437931,
+       "taxes": 43.74112310610001
+      },
+      {
+       "capex": 75.77508386119925,
+       "da": 64.18595338830997,
+       "delta_nwc": 12.051191766395597,
+       "drivers": {
+        "asp": 112.06420152480001,
+        "gp_per_unit": 30.0,
+        "opex": 202.8729630025,
+        "units": 14.319013680320003
+       },
+       "ebit": 226.69744740710007,
+       "ebitda": 290.88340079541,
+       "fcff": 155.45066121232418,
+       "is_actual": false,
+       "nopat": 179.09098345160905,
+       "other_adj": 0.0,
+       "period": "FY2031",
+       "period_end": "2031-12-31",
+       "revenue": 1604.648834707749,
+       "taxes": 47.606463955491016
+      },
+      {
+       "capex": 79.22921528392817,
+       "da": 69.39785280344074,
+       "delta_nwc": 13.029748537826936,
+       "drivers": {
+        "asp": 114.30548555529602,
+        "gp_per_unit": 30.0,
+        "opex": 208.959151892575,
+        "units": 15.178154501139204
+       },
+       "ebit": 246.38548314160113,
+       "ebitda": 315.78333594504187,
+       "fcff": 171.78342066355054,
+       "is_actual": false,
+       "nopat": 194.6445316818649,
+       "other_adj": 0.0,
+       "period": "FY2032",
+       "period_end": "2032-12-31",
+       "revenue": 1734.9463200860184,
+       "taxes": 51.74095145973624
+      },
+      {
+       "capex": 82.74467918077447,
+       "da": 75.03295845108013,
+       "delta_nwc": 14.087764119098484,
+       "drivers": {
+        "asp": 116.59159526640194,
+        "gp_per_unit": 30.0,
+        "opex": 215.22792644935225,
+        "units": 16.088843771207557
+       },
+       "ebit": 267.43738668687445,
+       "ebitda": 342.4703451379546,
+       "fcff": 189.47605063383793,
+       "is_actual": false,
+       "nopat": 211.2755354826308,
+       "other_adj": 0.0,
+       "period": "FY2033",
+       "period_end": "2033-12-31",
+       "revenue": 1875.8239612770033,
+       "taxes": 56.16185120424363
+      },
+      {
+       "capex": 86.30866133724695,
+       "da": 81.12563467730784,
+       "delta_nwc": 15.231690565569284,
+       "drivers": {
+        "asp": 118.92342717172998,
+        "gp_per_unit": 30.0,
+        "opex": 221.6847642428328,
+        "units": 17.05417439748001
+       },
+       "ebit": 289.9404676815675,
+       "ebitda": 371.06610235887536,
+       "fcff": 208.63825224292995,
+       "is_actual": false,
+       "nopat": 229.05296946843833,
+       "other_adj": 0.0,
+       "period": "FY2034",
+       "period_end": "2034-12-31",
+       "revenue": 2028.140866932696,
+       "taxes": 60.88749821312917
+      },
+      {
+       "capex": 89.90586211843286,
+       "da": 87.71303621310524,
+       "delta_nwc": 16.468503839493497,
+       "drivers": {
+        "asp": 121.30189571516459,
+        "gp_per_unit": 30.0,
+        "opex": 228.3353071701178,
+        "units": 18.07742486132881
+       },
+       "ebit": 313.9874386697465,
+       "ebitda": 401.7004748828517,
+       "fcff": 229.38874680427858,
+       "is_actual": false,
+       "nopat": 248.05007654909974,
+       "other_adj": 0.0,
+       "period": "FY2035",
+       "period_end": "2035-12-31",
+       "revenue": 2192.825905327631,
+       "taxes": 65.93736212064677
+      }
+     ],
+     "terminal": {
+      "capex_next": 92.15350867139368,
+      "da_next": 89.90586211843286,
+      "dnwc_next": 5.482064763319078,
+      "fcf_next": 246.5216171465473,
+      "g": 0.025,
+      "method": "normalized_gordon",
+      "nopat_next": 254.25132846282722,
+      "nwc_pct_of_revenue": 0.1
+     }
+    }
+   ],
+   "discounting": {
+    "convention": "end",
+    "stub_fraction": 0.5,
+    "tv_timing": "end_last",
+    "wacc": 0.09
+   },
+   "id": "base",
+   "label": "Base",
+   "narrative": "Units +6%/yr on the new plant; GP/unit holds near $30.",
+   "probability": 0.5,
+   "results": {
+    "bridge_total": -640.0,
+    "equity": 1940.6604413657597,
+    "equity_components": 0.0,
+    "ev": 2580.6604413657597,
+    "floored": false,
+    "issuance_proceeds": 0.0,
+    "pv_explicit": 908.0688046432423,
+    "pv_tv": 1672.5916367225175,
+    "shares_used": 50.0,
+    "tv_share_of_ev": 0.648125421660408,
+    "upside": -0.07807104923241825,
+    "value_per_ordinary": 38.813208827315194,
+    "value_per_share": 38.813208827315194,
+    "value_per_share_raw": 38.813208827315194
+   },
+   "role": "base",
+   "shares": {
+    "method": "current_diluted",
+    "used": 50.0
+   },
+   "tax": {
+    "guard": true,
+    "mode": "rate_on_ebit",
+    "rate": 0.21
+   },
+   "year1_locked": true
+  },
+  {
+   "bridge_overrides": {
+    "op_leases": true
+   },
+   "components": [
+    {
+     "id": "consolidated",
+     "kind": "dcf",
+     "label": "Example Widgets",
+     "results": {
+      "fcf_next": 478.71905205463753,
+      "pv_explicit": 1395.5600554966038,
+      "pv_tv": 4009.91816555108,
+      "tv": 8703.982764629773,
+      "tv_share": 0.7418248675829244,
+      "value": 5405.478221047684,
+      "wacc": 0.085
+     },
+     "rows": [
+      {
+       "capex": 59.732749999999996,
+       "da": 43.442,
+       "delta_nwc": 10.104999999999997,
+       "drivers": {
+        "asp": 101.5,
+        "gp_per_unit": 30.0,
+        "opex": 175.0,
+        "units": 10.7
+       },
+       "ebit": 146.0,
+       "ebitda": 189.442,
+       "fcff": 88.94425000000001,
+       "is_actual": false,
+       "nopat": 115.34,
+       "other_adj": 0.0,
+       "period": "FY2026",
+       "period_end": "2026-12-31",
+       "revenue": 1086.05,
+       "taxes": 30.66
+      },
+      {
+       "capex": 65.15170508,
+       "da": 48.741924,
+       "delta_nwc": 13.249810000000004,
+       "drivers": {
+        "asp": 103.53,
+        "gp_per_unit": 30.333333333333332,
+        "opex": 180.25,
+        "units": 11.77
+       },
+       "ebit": 176.7733333333333,
+       "ebitda": 225.5152573333333,
+       "fcff": 109.99134225333333,
+       "is_actual": false,
+       "nopat": 139.6509333333333,
+       "other_adj": 0.0,
+       "period": "FY2027",
+       "period_end": "2027-12-31",
+       "revenue": 1218.5481,
+       "taxes": 37.12239999999999
+      },
+      {
+       "capex": 71.00382294852,
+       "da": 54.688438728,
+       "delta_nwc": 14.866286820000006,
+       "drivers": {
+        "asp": 105.6006,
+        "gp_per_unit": 30.666666666666668,
+        "opex": 185.6575,
+        "units": 12.947000000000001
+       },
+       "ebit": 211.3838333333334,
+       "ebitda": 266.0722720613334,
+       "fcff": 135.81155729281338,
+       "is_actual": false,
+       "nopat": 166.99322833333338,
+       "other_adj": 0.0,
+       "period": "FY2028",
+       "period_end": "2028-12-31",
+       "revenue": 1367.2109682,
+       "taxes": 44.390605000000015
+      },
+      {
+       "capex": 77.31413959854818,
+       "da": 61.36042825281601,
+       "delta_nwc": 16.67997381204002,
+       "drivers": {
+        "asp": 107.71261200000001,
+        "gp_per_unit": 31.0,
+        "opex": 191.227225,
+        "units": 14.241700000000002
+       },
+       "ebit": 250.26547500000007,
+       "ebitda": 311.6259032528161,
+       "fcff": 165.07604009222786,
+       "is_actual": false,
+       "nopat": 197.70972525000005,
+       "other_adj": 0.0,
+       "period": "FY2029",
+       "period_end": "2029-12-31",
+       "revenue": 1534.0107063204002,
+       "taxes": 52.55574975000001
+      },
+      {
+       "capex": 84.10735261041745,
+       "da": 68.84640049965958,
+       "delta_nwc": 18.714930617108916,
+       "drivers": {
+        "asp": 109.86686424000001,
+        "gp_per_unit": 31.333333333333332,
+        "opex": 196.96404175,
+        "units": 15.665870000000004
+       },
+       "ebit": 293.8998849166668,
+       "ebitda": 362.7462854163264,
+       "fcff": 198.2050263563,
+       "is_actual": false,
+       "nopat": 232.18090908416679,
+       "other_adj": 0.0,
+       "period": "FY2030",
+       "period_end": "2030-12-31",
+       "revenue": 1721.1600124914894,
+       "taxes": 61.71897583250002
+      },
+      {
+       "capex": 91.40736594339802,
+       "da": 77.24566136061804,
+       "delta_nwc": 20.998152152396166,
+       "drivers": {
+        "asp": 112.06420152480001,
+        "gp_per_unit": 31.666666666666668,
+        "opex": 202.8729630025,
+        "units": 17.232457000000004
+       },
+       "ebit": 342.8215086641668,
+       "ebitda": 420.06717002478484,
+       "fcff": 235.66913510951562,
+       "is_actual": false,
+       "nopat": 270.82899184469176,
+       "other_adj": 0.0,
+       "period": "FY2031",
+       "period_end": "2031-12-31",
+       "revenue": 1931.141534015451,
+       "taxes": 71.99251681947503
+      },
+      {
+       "capex": 99.23672869337241,
+       "da": 86.66963204661346,
+       "delta_nwc": 23.55992671498855,
+       "drivers": {
+        "asp": 114.30548555529602,
+        "gp_per_unit": 32.0,
+        "opex": 208.959151892575,
+        "units": 18.955702700000007
+       },
+       "ebit": 397.6233345074252,
+       "ebitda": 484.2929665540387,
+       "fcff": 277.99541089911844,
+       "is_actual": false,
+       "nopat": 314.12243426086593,
+       "other_adj": 0.0,
+       "period": "FY2032",
+       "period_end": "2032-12-31",
+       "revenue": 2166.7408011653365,
+       "taxes": 83.5009002465593
+      },
+      {
+       "capex": 107.61594871963902,
+       "da": 97.24332715630031,
+       "delta_nwc": 26.434237774217127,
+       "drivers": {
+        "asp": 116.59159526640194,
+        "gp_per_unit": 32.333333333333336,
+        "opex": 215.22792644935225,
+        "units": 20.85127297000001
+       },
+       "ebit": 458.9632329139815,
+       "ebitda": 556.2065600702819,
+       "fcff": 325.7740946644896,
+       "is_actual": false,
+       "nopat": 362.5809540020454,
+       "other_adj": 0.0,
+       "period": "FY2033",
+       "period_end": "2033-12-31",
+       "revenue": 2431.0831789075078,
+       "taxes": 96.38227891193611
+      },
+      {
+       "capex": 116.56265896244251,
+       "da": 109.10701306936897,
+       "delta_nwc": 29.659214782671643,
+       "drivers": {
+        "asp": 118.92342717172998,
+        "gp_per_unit": 32.666666666666664,
+        "opex": 221.6847642428328,
+        "units": 22.936400267000014
+       },
+       "ebit": 527.5709778125009,
+       "ebitda": 636.6779908818698,
+       "fcff": 379.6662117961305,
+       "is_actual": false,
+       "nopat": 416.78107247187575,
+       "other_adj": 0.0,
+       "period": "FY2034",
+       "period_end": "2034-12-31",
+       "revenue": 2727.675326734224,
+       "taxes": 110.7899053406252
+      },
+      {
+       "capex": 126.09061072374696,
+       "da": 122.418068663832,
+       "delta_nwc": 33.277638986157584,
+       "drivers": {
+        "asp": 121.30189571516459,
+        "gp_per_unit": 33.0,
+        "opex": 228.3353071701178,
+        "units": 25.230040293700018
+       },
+       "ebit": 604.2560225219827,
+       "ebitda": 726.6740911858146,
+       "fcff": 440.41207674629374,
+       "is_actual": false,
+       "nopat": 477.36225779236634,
+       "other_adj": 0.0,
+       "period": "FY2035",
+       "period_end": "2035-12-31",
+       "revenue": 3060.4517165958,
+       "taxes": 126.89376472961636
+      }
+     ],
+     "terminal": {
+      "capex_next": 129.87332904545937,
+      "da_next": 126.09061072374696,
+      "dnwc_next": 9.1813551497874,
+      "fcf_next": 478.71905205463753,
+      "g": 0.03,
+      "method": "normalized_gordon",
+      "nopat_next": 491.68312552613736,
+      "nwc_pct_of_revenue": 0.1
+     }
+    }
+   ],
+   "discounting": {
+    "convention": "end",
+    "stub_fraction": 0.5,
+    "tv_timing": "end_last",
+    "wacc": 0.085
+   },
+   "id": "bull",
+   "label": "Bull",
+   "narrative": "Share gains (+10%/yr) and mix lift GP/unit to $33.",
+   "probability": 0.25,
+   "results": {
+    "bridge_total": -640.0,
+    "equity": 4765.478221047684,
+    "equity_components": 0.0,
+    "ev": 5405.478221047684,
+    "floored": false,
+    "issuance_proceeds": 0.0,
+    "pv_explicit": 1395.5600554966038,
+    "pv_tv": 4009.91816555108,
+    "shares_used": 50.0,
+    "tv_share_of_ev": 0.7418248675829244,
+    "upside": 1.2638851406402298,
+    "value_per_ordinary": 95.30956442095368,
+    "value_per_share": 95.30956442095368,
+    "value_per_share_raw": 95.30956442095368
+   },
+   "role": "bull",
+   "shares": {
+    "method": "current_diluted",
+    "used": 50.0
+   },
+   "tax": {
+    "guard": true,
+    "mode": "rate_on_ebit",
+    "rate": 0.21
+   },
+   "year1_locked": true
+  }
+ ],
+ "sources": [
+  {
+   "accession": "0000000000-26-000001",
+   "description": "Q2 FY2026 10-Q (fictional)",
+   "filed": "2026-08-05",
+   "id": "10q_q2",
+   "kind": "10-Q",
+   "url": "https://www.sec.gov/"
+  },
+  {
+   "accession": "0000000000-26-000002",
+   "description": "Q2 FY2026 earnings release EX-99.1 (fictional)",
+   "exhibit": "EX-99.1",
+   "filed": "2026-08-04",
+   "id": "8k_q2",
+   "kind": "8-K",
+   "url": "https://www.sec.gov/"
+  },
+  {
+   "description": "closing quote",
+   "fetched_at": "2026-09-30T21:00:00Z",
+   "id": "price",
+   "kind": "price",
+   "url": "https://stooq.com/"
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {"name": "dcf-studio", "runtimeExecutable": "uv", "runtimeArgs": ["run", "uvicorn", "server.main:app", "--host", "127.0.0.1", "--port", "8765"], "port": 8765},
+    {"name": "dcf-studio-web-dev", "runtimeExecutable": "bash", "runtimeArgs": ["-lc", "source ~/.nvm/nvm.sh && nvm use 20.18.0 && cd web && npm run dev"], "port": 5173}
+  ]
+}
